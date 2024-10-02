@@ -6,13 +6,13 @@ import java.sql.Statement;
 
 public class Ejercicio04 {
     public static void main(String[] args) {
-        SakilaConnectionPool pool = new SakilaConnectionPool();
 
-        try (Connection conexion = pool.getConnection();
-             Statement ps = conexion.createStatement()) {
+
+        try (Connection conexion = SakilaConnectionPool.getInstance().getConnection();
+             Statement s = conexion.createStatement()) {
 
         } catch (SQLException e) {
-            throw new RunTimeExcetion(e);
+            throw new RuntimeException(e);
         }
     }
 }

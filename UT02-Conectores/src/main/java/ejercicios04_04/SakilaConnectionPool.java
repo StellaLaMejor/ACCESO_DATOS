@@ -2,13 +2,17 @@ package ejercicios04_04;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import lombok.Getter;
+
+import java.sql.Connection;
+import java.sql.SQLException;
 
 public class SakilaConnectionPool {
 
+    @Getter
+    private static SakilaConnectionPool instance = new SakilaConnectionPool();
 
-    private SakilaConnectionPool instance = new SakilaConnectionPool();
-
-    private static final String CONNECTION_STRING = "jbdc:mariadb://localhost:3306";
+    private static final String CONNECTION_STRING = "jdbc:mysql://localhost/sakila";
     private static final String USERNAME = "sakilauser";
     private static final String PASSWORD = "pwdsakilauser";
 
@@ -21,6 +25,10 @@ public class SakilaConnectionPool {
         config.setJdbcUrl(CONNECTION_STRING);
         config.setUsername(USERNAME);
         config.setPassword(PASSWORD);
-    }
 
+        dataSource = new HikariDataSource(config);
+    }
+    public Connection getConnection() throws SQLException {
+        return dataSource.getConnection();
+    }
 }
